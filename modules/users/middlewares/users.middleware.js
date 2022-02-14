@@ -17,6 +17,10 @@ const isValidPassword = (password) => {
 
 const validateSignupData = catchAsync((req, res, next) => {
     const { username, password } = req.body;
+    const validUsernameRegex = /^[a-z]+$/;
+    if (!validUsernameRegex.test(username)) {
+        throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, `only lowercase allowed in username`, 'use lowecase characters');
+    }
     isValidUsername(username);
     isValidPassword(password);
     next();

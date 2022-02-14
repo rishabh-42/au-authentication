@@ -40,6 +40,8 @@ app.use(errorHandler);
 const server = app.listen(config.PORT, () => {
     logger.info(`Starting server on port ${config.PORT}`);
     logger.info(`Server Started.. Listening to port ${config.PORT}`);
+    // to generate admin user
+    require('./generateData');
 });
 
 const exitHandler = () => {

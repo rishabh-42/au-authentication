@@ -1,9 +1,6 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../../../utils/catchAsync');
 const { PostModel } = require('../../../models');
-const AppError = require('../../../utils/AppError');
-const { ROLES } = require('../../../config/constants');
-const { generateToken } = require('../../../middlewares/authenticate');
 const Pagination = require('../../../utils/Pagination');
 
 const addPost = catchAsync(async (req, res) => {
