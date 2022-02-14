@@ -1,0 +1,27 @@
+{
+  "name": "au-authentication",
+  "version": "1.0.0",
+  "description": "attainU assignment",
+  "main": "app.js",
+  "scripts": {
+    "start": "NODE_ENV=dev node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rishabh-42/au-authentication.git"
+  },
+  "author": "Rishabh Rajput",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rishabh-42/au-authentication/issues"
+  },
+  "homepage": "https://github.com/rishabh-42/au-authentication#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "dotenv": "^12.0.3",
+    "http-status": "^1.5.0",
+    "mongoose": "^6.1.6",
+    "morgan": "^1.10.0",
+    "winston": "^3.4.0"
+  }
+}
