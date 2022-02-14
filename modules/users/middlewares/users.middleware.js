@@ -11,7 +11,7 @@ const isValidUsername = (username) => {
 
 const isValidPassword = (password) => {
     if (!password || !password.trim() || password.length < MIN_PASSWORD_LENGTH) {
-        throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, 'password of length >=6 required', 'password required in body');
+        throw new AppError(httpStatus.UNPROCESSABLE_ENTITY, `password of length >=${MIN_PASSWORD_LENGTH} required`, 'password required in body');
     }
 }
 

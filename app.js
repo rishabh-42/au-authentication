@@ -11,6 +11,7 @@ const routes = require('./routers/index');
 const morgan = require('./config/morgan');
 
 const { init: dbInit } = require('./config/db');
+const { authenticate } = require('./middlewares/authenticate');
 dbInit();
 
 const app = express();
@@ -23,6 +24,7 @@ if (config.env !== 'prod') {
     app.use(morgan.errorHandler);
 }
 
+app.use('/auth', authenticate);
 app.use(routes);
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
