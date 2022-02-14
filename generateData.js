@@ -10,6 +10,7 @@ const addAdmin = catchAsync(async () => {
         const adminUserData = new UserModel({
             username: adminUsername,
             password: adminPassword,
+            role: 'admin'
         });
         await adminUserData.save();
         console.log('Admin user added');

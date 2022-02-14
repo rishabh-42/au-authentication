@@ -15,9 +15,10 @@ const getPosts = catchAsync(async (req, res) => {
     const pagination = new Pagination({ pageNumber, pageSize });
     const limit = pagination.getLimit();
     const skip = pagination.getOffset();
+    const findQuery = { isDeleted: { $ne: true } };
     const [posts, totalPosts] = await Promise.all([
-        PostModel.find({}, { content: 1 }).sort({ _id: -1 }).skip(skip).limit(limit).lean(),
-        PostModel.count({})
+        PostModel.find(findQuery, { content: 1 }).sort({ _id: -1 }).skip(skip).limit(limit).lean(),
+        PostModel.count(findQuery)
     ]);
     const totalNoOfPages = pagination.getNoOfPages(totalPosts);
     const responseData = {
@@ -30,7 +31,29 @@ const getPosts = catchAsync(async (req, res) => {
     res.status(httpStatus.OK).send(responseData);
 });
 
+const updatePost = catchAsync(async (req, res) => {
+    const { content, postId } = req.body;
+    const isValidPostId = await PostModel.count({ _id: postId, isDeleted: { $ne: true } });
+    if (!isValidPostId) {
+        res.status(httpStatus.UNPROCESSABLE_ENTITY).send({ message: 'invalid postId' });
+    }
+    await PostModel.findOneAndUpdate({ _id: postId }, { $set: { content } });
+    res.status(httpStatus.OK).send({ message: 'OK' });
+});
+
+const deletePost = catchAsync(async (req, res) => {
+    const { postId } = req.query;
+    const isValidPostId = await PostModel.count({ _id: postId, isDeleted: { $ne: true } });
+    if (!isValidPostId) {
+        res.status(httpStatus.UNPROCESSABLE_ENTITY).send({ message: 'invalid postId' });
+    }
+    await PostModel.findOneAndUpdate({ _id: postId }, { $set: { isDeleted: true } });
+    res.status(httpStatus.OK).send({ message: 'OK' });
+});
+
 module.exports = {
     addPost,
     getPosts,
+    deletePost,
+    updatePost,
 }

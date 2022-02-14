@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const PostSchema = new Schema({
     content: { type: String, required: true, trim: true },
     createdBy: { type: Schema.Types.ObjectId, ref: 'users', required: true },
+    isDeleted: { type: Boolean, default: false },
 }, { timestamps: true });
 
 module.exports = mongoose.model('posts', PostSchema, 'posts');
